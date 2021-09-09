@@ -4,6 +4,9 @@ session_start();
 if (!isset($_SESSION['login'])) {
     header("LOCATION:index.php");
 }
+if (isset($_GET['delete'])) {
+    $delete = "<p class='alert alert-success'>Votre article a bien été effacé</p>";
+}
 
 require '../connect_database.php';
 ?>
@@ -20,10 +23,10 @@ require '../connect_database.php';
           integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
 </head>
 <body>
-<a class="btn btn-success my-5 ms-5" href="dashboard.php">Retour à Admin</a>
+<a class="btn btn-success my-5 ms-3" href="dashboard.php">Retour à Admin</a>
 <div class="container-fluid">
 
-
+    <?php if (isset($error)) echo $error ?>
     <table class="table">
         <thead>
         <tr>
@@ -47,7 +50,7 @@ require '../connect_database.php';
             echo '<td>' . $data['site'] . '</td>';
             echo '<td>' . $data['ecole'] . '</td>';
             echo '<td>' . $data['degree'] . '</td>';
-            echo '<td>';
+            echo '<td class="d-flex">';
             echo '<a class="btn btn-warning me-3" href="modify.php?id=' . $data['id'] . '">Modifier</a>';
             echo '<a class="btn btn-danger" href="delete.php?id=' . $data['id'] . '">Supprimer</a>';
             echo '</td>';
@@ -57,6 +60,7 @@ require '../connect_database.php';
         ?>
         </tbody>
     </table>
+    <a class="btn btn-secondary" href="add.php">Ajouter un article</a>
 </div>
 </body>
 </html>
