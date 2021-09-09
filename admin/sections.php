@@ -20,39 +20,43 @@ require '../connect_database.php';
           integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
 </head>
 <body>
-<a class="btn btn-success" href="dashboard.php">Retour à Admin</a>
-<table class="table">
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>Nom</th>
-        <th>Description</th>
-        <th>Site web</th>
-        <th>Ecole</th>
-        <th>Degré</th>
-        <th>Action</th>
-    </tr>
-    </thead>
-    <tbody>
-    <?php
-    $sections = $database->query("SELECT * FROM categories");
-    while ($data = $sections->fetch()) {
-        echo '<tr>';
-        echo '<td>' . $data['id'] . '</td>';
-        echo '<td>' . $data['name'] . '</td>';
-        echo '<td>' . $data['description'] . '</td>';
-        echo '<td>' . $data['site'] . '</td>';
-        echo '<td>' . $data['ecole'] . '</td>';
-        echo '<td>' . $data['degree'] . '</td>';
-        echo '<td>';
-            echo '<a class="btn btn-warning me-3" href="modify.php">Modifier</a>';
-            echo '<a class="btn btn-danger" href="delete.php">Supprimer</a>';
-        echo '</td>';
+<a class="btn btn-success my-5 ms-5" href="dashboard.php">Retour à Admin</a>
+<div class="container-fluid">
 
-        echo '</tr>';
-    }
-    ?>
-    </tbody>
-</table>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nom</th>
+            <th>Description</th>
+            <th>Site web</th>
+            <th>Ecole</th>
+            <th>Degré</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php
+        $sections = $database->query("SELECT * FROM categories");
+        while ($data = $sections->fetch()) {
+            echo '<tr>';
+            echo '<td>' . $data['id'] . '</td>';
+            echo '<td>' . $data['name'] . '</td>';
+            echo '<td>' . $data['description'] . '</td>';
+            echo '<td>' . $data['site'] . '</td>';
+            echo '<td>' . $data['ecole'] . '</td>';
+            echo '<td>' . $data['degree'] . '</td>';
+            echo '<td>';
+            echo '<a class="btn btn-warning me-3" href="modify.php?id=' . $data['id'] . '">Modifier</a>';
+            echo '<a class="btn btn-danger" href="delete.php?id=' . $data['id'] . '">Supprimer</a>';
+            echo '</td>';
+            echo '</tr>';
+        }
+        $sections->closeCursor();
+        ?>
+        </tbody>
+    </table>
+</div>
 </body>
 </html>
