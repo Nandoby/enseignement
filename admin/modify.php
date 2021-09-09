@@ -1,6 +1,7 @@
 <?php
 session_start();
 
+
 if (!isset($_SESSION['login'])) {
     header("LOCATION:index.php");
 }
@@ -31,9 +32,9 @@ require '../connect_database.php'
 
 <div class="container">
 
-    <?php if(isset($success)) echo '<p class="alert alert-success">' . $success . '</p>' ?>
+    <?php if (isset($success)) echo '<p class="alert alert-success">' . $success . '</p>' ?>
 
-    <form action="treatmentModify.php?id=<?=$id?>" method="POST">
+    <form action="treatmentModify.php?id=<?= $id ?>" method="POST">
 
         <?php
         $query = $database->prepare("SELECT * FROM categories WHERE id = ?");
@@ -41,32 +42,36 @@ require '../connect_database.php'
 
         while ($data = $query->fetch()) : ?>
 
-        <div class="mb-3">
-            <label for="nom" class="form-label">Nom</label>
-            <input class="form-control" type="text" id="nom" name="nom" value="<?= $data['name'] ?>">
-        </div>
+            <div class="mb-3">
+                <label for="nom" class="form-label">Nom</label>
+                <input class="form-control" type="text" id="nom" name="nom" value="<?= $data['name'] ?>">
+            </div>
 
-        <div class="mb-3">
-            <label for="descript" class="form-label">Description</label>
-            <input class="form-control" type="text" id="descript" name="descript" value="<?= $data['description']?>">
-        </div>
+            <div class="mb-3">
+                <label for="descript" class="form-label">Description</label>
+                <input class="form-control" type="text" id="descript" name="descript"
+                       value="<?= $data['description'] ?>">
+            </div>
 
-        <div class="mb-3">
-            <label for="site" class="form-label">Site</label>
-            <input class="form-control" type="text" id="site" name="site" value="<?= $data['site'] ?>">
-        </div>
+            <div class="mb-3">
+                <label for="site" class="form-label">Site</label>
+                <input class="form-control" type="text" id="site" name="site" value="<?= $data['site'] ?>">
+            </div>
 
             <div class="mb-3">
                 <label for="site" class="form-label">Ecole</label>
                 <input class="form-control" type="text" id="site" name="ecole" value="<?= $data['ecole'] ?>">
             </div>
+            <div class="mb-3">
+                <select name="degree" class="form-select">
+                    <option value="1" <?php if ($data['degree'] == 1) echo 'selected' ?>>1er degré</option>
+                    <option value="2" <?php if ($data['degree'] == 2) echo 'selected' ?>>2ème degré</option>
+                    <option value="3" <?php if ($data['degree'] == 3) echo 'selected' ?>>3ème degré</option>
+                </select>
+            </div>
 
-        <div class="mb-3">
-            <label for="degree" class="form-label">Degré</label>
-            <input class="form-control" type="text" id="degree" name="degree" value="<?= $data['degree'] ?>">
-        </div>
-        <input class="btn btn-warning" type="submit" value="Modifier">
-        <a class="btn btn-secondary" href="sections.php">Retour</a>
+            <input class="btn btn-warning" type="submit" value="Modifier">
+            <a class="btn btn-secondary" href="sections.php">Retour</a>
 
         <?php endwhile;
 
