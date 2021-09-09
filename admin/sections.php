@@ -7,6 +7,9 @@ if (!isset($_SESSION['login'])) {
 if (isset($_GET['delete'])) {
     $delete = "<p class='alert alert-success'>Votre article a bien été effacé</p>";
 }
+if (isset($_GET['added'])) {
+    $added = "<p class='alert alert-success'>Votre article a bien été ajouté !</p>";
+}
 
 require '../connect_database.php';
 ?>
@@ -23,10 +26,12 @@ require '../connect_database.php';
           integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
 </head>
 <body>
-<a class="btn btn-success my-5 ms-3" href="dashboard.php">Retour à Admin</a>
+
 <div class="container-fluid">
+    <h1 class="my-3">Liste des différentes sections</h1>
 
     <?php if (isset($error)) echo $error ?>
+    <?php if (isset($added)) echo $added ?>
     <table class="table">
         <thead>
         <tr>
@@ -61,6 +66,7 @@ require '../connect_database.php';
         </tbody>
     </table>
     <a class="btn btn-secondary" href="add.php">Ajouter un article</a>
+    <a class="btn btn-success" href="dashboard.php">Retour à Admin</a>
 </div>
 </body>
 </html>
