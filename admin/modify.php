@@ -4,9 +4,11 @@ session_start();
 if (!isset($_SESSION['login'])) {
     header("LOCATION:index.php");
 }
-
 if (isset($_GET['id'])) {
     $id = htmlspecialchars($_GET['id']);
+}
+if (isset($_GET['success'])) {
+    $success = 'Votre article a bien été modifié';
 }
 
 require '../connect_database.php'
@@ -29,7 +31,9 @@ require '../connect_database.php'
 
 <div class="container">
 
-    <form action="treatmentModify.php" method="POST">
+    <?php if(isset($success)) echo '<p class="alert alert-success">' . $success . '</p>' ?>
+
+    <form action="treatmentModify.php?id=<?=$id?>" method="POST">
 
         <?php
         $query = $database->prepare("SELECT * FROM categories WHERE id = ?");
@@ -51,6 +55,11 @@ require '../connect_database.php'
             <label for="site" class="form-label">Site</label>
             <input class="form-control" type="text" id="site" name="site" value="<?= $data['site'] ?>">
         </div>
+
+            <div class="mb-3">
+                <label for="site" class="form-label">Ecole</label>
+                <input class="form-control" type="text" id="site" name="ecole" value="<?= $data['ecole'] ?>">
+            </div>
 
         <div class="mb-3">
             <label for="degree" class="form-label">Degré</label>
